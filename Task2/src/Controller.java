@@ -30,7 +30,7 @@ public class Controller {
 
     public void userFunction() {
         Scanner sc = new Scanner(System.in);
-        model.setIntNumber((int)(Math.random()*101));
+        model.setIntNumber((int)(Math.random()*(topBorderOfRange+1)));
         view.printMessage(View.TRY_TO_GUESS + View.CHOOSE, bottomBorderOfRange);
         view.printMessage(" - ", topBorderOfRange);
         view.printMessage("");
