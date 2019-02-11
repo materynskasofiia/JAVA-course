@@ -18,6 +18,10 @@ public class View {
 
     public static final String TRY_AGAIN="Please, try again.";
 
+    public static final String DASH=" - ";
+
+    public static final String INCLUSIVE=" inclusive";
+
     public static final String CONGRATS="Congratulations! You guessed the number ";
 
     public static final String STATISTIC="The number of attempts before the right one ";
@@ -25,6 +29,7 @@ public class View {
     public void printMessage(String message){
         System.out.println(message);
     }
+
 
     public void printMessage(String message, int number){
         System.out.print(message + number);
