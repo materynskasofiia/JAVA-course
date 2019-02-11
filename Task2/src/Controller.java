@@ -15,10 +15,6 @@ public class Controller {
 
     private int inputNumber;
 
-    private int topBorderOfRange=100;
-
-    private int bottomBorderOfRange=0;
-
     private boolean guessed=false;
 
     private int numberOfAttempts=0;
@@ -30,10 +26,8 @@ public class Controller {
 
     public void userFunction() {
         Scanner sc = new Scanner(System.in);
-        model.setIntNumber((int)(Math.random()*(topBorderOfRange+1)));
-        view.printMessage(View.TRY_TO_GUESS + View.CHOOSE, bottomBorderOfRange);
-        view.printMessage(" - ", topBorderOfRange);
-        view.printMessage("");
+        model.setIntNumber();
+        printMessageWithRange((View.TRY_TO_GUESS + View.CHOOSE), View.DASH);
 
         while(!guessed){
             inputCheck(sc);
@@ -52,11 +46,9 @@ public class Controller {
 
     public void rangeCheck(int number, Scanner sc) {
 
-        if(number>topBorderOfRange || number<bottomBorderOfRange) {
+        if(number>model.getTopBorderOfRange() || number<model.getBottomBorderOfRange()) {
             view.printMessage(View.WRONG_RANGE + View.TRY_AGAIN);
-            view.printMessage(View.CHOOSE, bottomBorderOfRange);
-            view.printMessage(" - ", topBorderOfRange);
-            view.printMessage("");
+            printMessageWithRange(View.CHOOSE, View.DASH);
             inputCheck(sc);
         }else {
             inputNumber = number;
@@ -67,7 +59,7 @@ public class Controller {
 
         if (inputNumber == model.getIntNumber()) {
             view.printMessage(View.CONGRATS, model.getIntNumber());
-            view.printMessage("");
+            view.printMessage(View.INCLUSIVE);
             view.printMessage(View.STATISTIC, numberOfAttempts);
             guessed = true;
         } else {
@@ -77,13 +69,17 @@ public class Controller {
 
     public void changeBorder(){
         if(inputNumber>model.getIntNumber()) {
-            topBorderOfRange = inputNumber;
+            model.setTopBorderOfRange(inputNumber);
         }else {
-            bottomBorderOfRange = inputNumber;
+            model.setBottomBorderOfRange(inputNumber);
         }
         numberOfAttempts++;
-        view.printMessage(View.RANGE, bottomBorderOfRange);
-        view.printMessage(" - ", topBorderOfRange);
-        view.printMessage("");
+        printMessageWithRange(View.RANGE, View.DASH);
+    }
+
+    public void printMessageWithRange(String message1, String message2){
+        view.printMessage(message1, model.getBottomBorderOfRange());
+        view.printMessage(message2, model.getTopBorderOfRange());
+        view.printMessage(View.INCLUSIVE);
     }
 }
